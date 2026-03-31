@@ -5,80 +5,47 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kit Designer — Achilles Sports</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-:root{--blue:#1e4fa3;--blue-hover:#163d82;--blue-light:#e8eef8;--blue-mid:#c2d1ee;--white:#ffffff;--off-white:#f5f7fa;--border:#dde3ed;--border-dark:#c4cedd;--text:#1a1a1a;--text-muted:#5a6a82;--text-dim:#8fa0bb}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--off-white);min-height:100vh;display:flex;align-items:flex-start;justify-content:center;font-family:'Barlow',sans-serif;color:var(--text)}
-.wrap{display:grid;grid-template-columns:300px 1fr;width:100%;min-height:100vh}
-.controls{background:var(--white);border-right:1px solid var(--border);overflow-y:auto;height:100vh;position:sticky;top:0}
-.panel-header{background:var(--blue);padding:18px 20px 16px}
-.panel-logo{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:3px}
-.panel-title{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:#fff;line-height:1}
-.sec{border-bottom:1px solid var(--border)}
-.sec-head{display:flex;align-items:center;justify-content:space-between;padding:11px 18px;cursor:pointer;user-select:none;transition:background .12s}
-.sec-head:hover{background:var(--off-white)}
-.sec-title{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--text-muted)}
-.sec-arrow{font-size:9px;color:var(--text-dim);transition:transform .2s}
-.sec-arrow.open{transform:rotate(180deg)}
-.sec-body{padding:14px 18px;display:none;border-top:1px solid var(--border);background:var(--off-white)}
-.sec-body.open{display:block}
-.plain-sec{padding:14px 18px;border-bottom:1px solid var(--border)}
-.lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
-.colour-lbl{display:block;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px;margin-top:10px}
-.colour-lbl:first-child{margin-top:0}
-.hex-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.color-preview{width:30px;height:30px;border-radius:4px;border:1.5px solid var(--border-dark);flex-shrink:0;cursor:pointer;transition:border-color .12s}
-.color-preview:hover{border-color:var(--blue)}
-.hex-in{flex:1;background:var(--white);border:1.5px solid var(--border);border-radius:4px;color:var(--text);font-family:monospace;font-size:12px;padding:7px 10px;outline:none;transition:border-color .12s;letter-spacing:1px}
-.hex-in:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(30,79,163,0.1)}
-.kit-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:3px}
-.ktab{padding:7px 4px;background:var(--off-white);border:1px solid var(--border);border-radius:3px;color:var(--text-muted);font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.5px;cursor:pointer;text-align:center;transition:all .12s;text-transform:uppercase}
-.ktab:hover{background:var(--blue-light);border-color:var(--blue-mid);color:var(--blue)}
-.ktab.on{background:var(--blue);border-color:var(--blue);color:#fff}
-.shirt-sel,.fnt-sel{width:100%;background:var(--white);border:1.5px solid var(--border);border-radius:4px;color:var(--text);font-family:'Barlow',sans-serif;font-size:13px;padding:9px 12px;outline:none;cursor:pointer}
-.txt-in{width:100%;background:var(--white);border:1.5px solid var(--border);border-radius:4px;color:var(--text);font-size:13px;padding:8px 12px;outline:none;margin-bottom:6px;font-family:'Barlow',sans-serif}
-.txt-in::placeholder{color:var(--text-dim)}
-.txt-in:focus,.shirt-sel:focus,.fnt-sel:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(30,79,163,0.1)}
-.up-box{border:1.5px dashed var(--border-dark);border-radius:6px;padding:12px;text-align:center;cursor:pointer;background:var(--white);margin-bottom:6px}
-.up-box:hover{border-color:var(--blue);background:var(--blue-light)}
-.up-title{font-size:11px;color:var(--text-muted);font-weight:500}
-.up-sub{font-size:10px;color:var(--text-dim);margin-top:2px}
-.export-wrap{padding:16px 18px;background:var(--white);border-top:2px solid var(--blue)}
-.export-row{display:flex;gap:4px;margin-top:8px}
-.fmt-btn{flex:1;padding:8px 4px;background:var(--off-white);border:1.5px solid var(--border);border-radius:4px;color:var(--text-muted);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;cursor:pointer;text-align:center;transition:all .12s;text-transform:uppercase;letter-spacing:1px}
-.fmt-btn:hover{background:var(--blue-light);border-color:var(--blue-mid);color:var(--blue)}
-.fmt-btn.on{background:var(--blue);border-color:var(--blue);color:#fff}
-.export-btn{width:100%;margin-top:8px;padding:12px;background:var(--blue);border:none;border-radius:4px;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:900;letter-spacing:3px;text-transform:uppercase;cursor:pointer}
-.export-btn:hover{background:var(--blue-hover)}
-.canvas-area{background:var(--off-white);display:flex;flex-direction:column;align-items:center;padding:32px 40px;min-height:100vh}
-.canvas-header{width:100%;max-width:600px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
-.canvas-logo{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--text-dim)}
-.view-toggle{display:flex;border:1.5px solid var(--border-dark);border-radius:4px;overflow:hidden}
-.vtog{padding:8px 22px;background:var(--white);color:var(--text-muted);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;cursor:pointer;text-transform:uppercase;transition:all .12s;border:none}
-.vtog:first-child{border-right:1px solid var(--border-dark)}
-.vtog:hover{background:var(--blue-light);color:var(--blue)}
-.vtog.on{background:var(--blue);color:#fff}
-.mockup-wrap{position:relative;width:100%;max-width:600px;line-height:0}
-.shirt-base{width:100%;height:auto;display:block}
-.colour-overlay{position:absolute;top:0;left:0;width:100%;height:100%;mix-blend-mode:multiply;pointer-events:none;display:block}
-.logos-overlay{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;display:block}
-</style>
+<link rel="stylesheet" href="css/designer.css">
 </head>
 <body>
 <div class="wrap">
   <div class="controls">
     <div class="panel-header"><div class="panel-logo">Achilles Sports</div><div class="panel-title">Kit Designer</div></div>
-    <div class="plain-sec"><div class="lbl">Shirt</div><select class="shirt-sel" id="shirtSelect" onchange="setShirt(this.value)"><option value="vneck">V-Neck</option></select></div>
-    <div class="plain-sec"><div class="lbl">Pattern</div><div class="kit-tabs"><div class="ktab on" onclick="setKitStyle(this,'solid')">None</div><div class="ktab" onclick="setKitStyle(this,'stripe')">Stripe</div><div class="ktab" onclick="setKitStyle(this,'hoop')">Hoop</div><div class="ktab" onclick="setKitStyle(this,'geo')">Geo</div><div class="ktab" onclick="setKitStyle(this,'halftone')">Halftone</div></div></div>
+
+    <div class="plain-sec">
+      <div class="lbl">Shirt</div>
+      <!-- Add new <option> here when you add a new shirt to shirts/ -->
+      <select class="shirt-sel" id="shirtSelect" onchange="setShirt(this.value)">
+        <option value="vneck">V-Neck</option>
+      </select>
+    </div>
+
+    <div class="plain-sec">
+      <div class="lbl">Pattern</div>
+      <!-- Add new .ktab here when you add a new pattern to patterns/ -->
+      <div class="kit-tabs">
+        <div class="ktab on" onclick="setKitStyle(this,'solid')">None</div>
+        <div class="ktab" onclick="setKitStyle(this,'stripe')">Stripe</div>
+        <div class="ktab" onclick="setKitStyle(this,'hoop')">Hoop</div>
+        <div class="ktab" onclick="setKitStyle(this,'geo')">Geo</div>
+        <div class="ktab" onclick="setKitStyle(this,'halftone')">Halftone</div>
+      </div>
+    </div>
+
     <div class="sec" id="secColours">
       <div class="sec-head" onclick="toggleSec('secColours')"><span class="sec-title">Colours</span><span class="sec-arrow" id="arr-secColours">&#9660;</span></div>
       <div class="sec-body" id="body-secColours">
-        <span class="colour-lbl">Body</span><div class="hex-row"><div class="color-preview" id="prevA" style="background:#e8e8e8;border:1.5px solid #ccc" onclick="document.getElementById('pickA').click()"></div><input class="hex-in" id="hexA" value="#e8e8e8" maxlength="7" oninput="onHex('A',this.value)"><input type="color" id="pickA" value="#e8e8e8" style="display:none" oninput="applyPick('A',this.value)"></div>
-        <span class="colour-lbl">Sleeves</span><div class="hex-row"><div class="color-preview" id="prevB" style="background:#1a2e6e" onclick="document.getElementById('pickB').click()"></div><input class="hex-in" id="hexB" value="#1a2e6e" maxlength="7" oninput="onHex('B',this.value)"><input type="color" id="pickB" value="#1a2e6e" style="display:none" oninput="applyPick('B',this.value)"></div>
-        <span class="colour-lbl">Sleeve Cuff</span><div class="hex-row"><div class="color-preview" id="prevC" style="background:#c8102e" onclick="document.getElementById('pickC').click()"></div><input class="hex-in" id="hexC" value="#c8102e" maxlength="7" oninput="onHex('C',this.value)"><input type="color" id="pickC" value="#c8102e" style="display:none" oninput="applyPick('C',this.value)"></div>
-        <span class="colour-lbl">Collar</span><div class="hex-row"><div class="color-preview" id="prevD" style="background:#1a2e6e" onclick="document.getElementById('pickD').click()"></div><input class="hex-in" id="hexD" value="#1a2e6e" maxlength="7" oninput="onHex('D',this.value)"><input type="color" id="pickD" value="#1a2e6e" style="display:none" oninput="applyPick('D',this.value)"></div>
+        <span class="colour-lbl">Body</span>
+        <div class="hex-row"><div class="color-preview" id="prevA" style="background:#e8e8e8;border:1.5px solid #ccc" onclick="document.getElementById('pickA').click()"></div><input class="hex-in" id="hexA" value="#e8e8e8" maxlength="7" oninput="onHex('A',this.value)"><input type="color" id="pickA" value="#e8e8e8" style="display:none" oninput="applyPick('A',this.value)"></div>
+        <span class="colour-lbl">Sleeves</span>
+        <div class="hex-row"><div class="color-preview" id="prevB" style="background:#1a2e6e" onclick="document.getElementById('pickB').click()"></div><input class="hex-in" id="hexB" value="#1a2e6e" maxlength="7" oninput="onHex('B',this.value)"><input type="color" id="pickB" value="#1a2e6e" style="display:none" oninput="applyPick('B',this.value)"></div>
+        <span class="colour-lbl">Sleeve Cuff</span>
+        <div class="hex-row"><div class="color-preview" id="prevC" style="background:#c8102e" onclick="document.getElementById('pickC').click()"></div><input class="hex-in" id="hexC" value="#c8102e" maxlength="7" oninput="onHex('C',this.value)"><input type="color" id="pickC" value="#c8102e" style="display:none" oninput="applyPick('C',this.value)"></div>
+        <span class="colour-lbl">Collar</span>
+        <div class="hex-row"><div class="color-preview" id="prevD" style="background:#1a2e6e" onclick="document.getElementById('pickD').click()"></div><input class="hex-in" id="hexD" value="#1a2e6e" maxlength="7" oninput="onHex('D',this.value)"><input type="color" id="pickD" value="#1a2e6e" style="display:none" oninput="applyPick('D',this.value)"></div>
       </div>
     </div>
+
     <div class="sec" id="secLogos">
       <div class="sec-head" onclick="toggleSec('secLogos')"><span class="sec-title">Logos &amp; Sponsor</span><span class="sec-arrow" id="arr-secLogos">&#9660;</span></div>
       <div class="sec-body" id="body-secLogos">
@@ -91,6 +58,7 @@ body{background:var(--off-white);min-height:100vh;display:flex;align-items:flex-
         <input class="txt-in" id="sponsorTxt" placeholder="Or type sponsor name" maxlength="16" oninput="redraw()" style="margin-top:8px">
       </div>
     </div>
+
     <div class="sec" id="secName">
       <div class="sec-head" onclick="toggleSec('secName')"><span class="sec-title">Name &amp; Number</span><span class="sec-arrow" id="arr-secName">&#9660;</span></div>
       <div class="sec-body" id="body-secName">
@@ -99,169 +67,54 @@ body{background:var(--off-white);min-height:100vh;display:flex;align-items:flex-
         <div class="up-title" style="margin-bottom:5px">Squad Number</div>
         <input class="txt-in" id="pNum" placeholder="e.g. 9" maxlength="2" oninput="redraw()">
         <div class="up-title" style="margin-bottom:5px">Number Font</div>
-        <select class="fnt-sel" id="numFont" onchange="redraw()"><option value="'Barlow Condensed',sans-serif">Modern Block</option><option value="'Georgia',serif">Classic Serif</option><option value="'Arial Black',sans-serif">Heavy Sans</option><option value="monospace">Typewriter</option></select>
+        <select class="fnt-sel" id="numFont" onchange="redraw()">
+          <option value="'Barlow Condensed',sans-serif">Modern Block</option>
+          <option value="'Georgia',serif">Classic Serif</option>
+          <option value="'Arial Black',sans-serif">Heavy Sans</option>
+          <option value="monospace">Typewriter</option>
+        </select>
       </div>
     </div>
+
     <div class="export-wrap">
       <div class="lbl">Export Kit</div>
-      <div class="export-row"><div class="fmt-btn on" id="fmt-png" onclick="setFmt(this,'png')">PNG</div><div class="fmt-btn" id="fmt-jpg" onclick="setFmt(this,'jpg')">JPG</div><div class="fmt-btn" id="fmt-svg" onclick="setFmt(this,'svg')">SVG</div></div>
+      <div class="export-row">
+        <div class="fmt-btn on" id="fmt-png" onclick="setFmt(this,'png')">PNG</div>
+        <div class="fmt-btn" id="fmt-jpg" onclick="setFmt(this,'jpg')">JPG</div>
+        <div class="fmt-btn" id="fmt-svg" onclick="setFmt(this,'svg')">SVG</div>
+      </div>
       <button class="export-btn" onclick="exportKit()">Export Kit</button>
     </div>
   </div>
+
   <div class="canvas-area">
     <div class="canvas-header">
       <div class="canvas-logo">Achilles Sports — Kit Designer</div>
-      <div class="view-toggle"><div class="vtog on" id="vFront" onclick="setView('front')">Front</div><div class="vtog" id="vBack" onclick="setView('back')">Back</div></div>
+      <div class="view-toggle">
+        <div class="vtog on" id="vFront" onclick="setView('front')">Front</div>
+        <div class="vtog" id="vBack"  onclick="setView('back')">Back</div>
+      </div>
     </div>
     <div class="mockup-wrap" id="mockupWrap">
-      <img class="shirt-base" id="shirtImg" src="shirt_front.jpeg" alt="Kit">
+      <img class="shirt-base" id="shirtImg" src="assets/shirt_front.jpeg" alt="Kit">
       <svg class="colour-overlay" id="colourSvg" viewBox="0 0 1600 2000" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"></svg>
-      <svg class="logos-overlay" id="logosSvg" viewBox="0 0 1600 2000" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"></svg>
+      <svg class="logos-overlay"  id="logosSvg"  viewBox="0 0 1600 2000" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"></svg>
     </div>
   </div>
 </div>
-<script>
-var SHIRTS = {
-  vneck_front: {
-    src: 'shirt_front.jpeg',
-    w: 1600, h: 2000,
-    mask: "m 589.21933,316.60471 -37.7943,27.88104 -59.47955,31.59851 -45.84883,24.78315 -60.71871,21.68525 -61.95787,25.40273 -41.51177,35.93556 -32.83767,38.41388 13.01115,45.84883 25.40273,59.47955 30.97894,62.57745 22.30483,26.64188 9.29368,16.72863 9.29368,6.19578 3.09789,9.91326 1.23916,4.95663 -3.71747,13.01115 8.6741,17.34821 1.85873,9.29368 1.85874,19.82651 -4.33705,11.15242 5.57621,6.81537 -0.61958,10.53283 2.47831,4.33706 -3.09789,9.91325 4.95663,14.25031 -4.95663,3.0979 -3.71747,6.81536 10.53284,11.772 35.93556,241.01611 0.61958,14.8699 -6.81537,43.9901 2.47832,26.0223 9.91326,35.316 9.91326,20.4461 -9.29368,27.2614 0.61957,20.4461 v 21.6853 l 4.95663,21.0656 v 5.5763 l -9.91325,33.4572 -3.0979,22.3048 v 27.2615 l 1.85874,23.544 0.61958,19.2069 3.71747,6.1958 -11.15242,35.9356 -5.57621,29.1202 -5.5762,26.0223 -3.71748,35.9355 1.85874,29.1202 2.47831,21.6853 0.61958,30.3594 -6.19578,43.3705 -4.33705,36.5551 4.33705,18.5874 34.6964,22.9244 94.17596,34.0768 109.04585,21.6853 133.829,9.9132 105.94795,-1.2391 120.19827,-16.7287 94.176,-22.3048 54.5229,-22.3048 41.5118,-27.8811 -4.9567,-45.2292 -5.5762,-61.9579 -3.7175,-59.4795 -6.2992,-35.8537 3.0667,-26.9437 5.9145,-28.0389 -1.7526,-46.0906 -4.9566,-37.4845 -14.9772,-54.21 -10.9527,-28.0389 7.4479,-29.7914 2.6286,-18.8386 -0.8762,-8.3241 3.943,-19.7149 2.6286,-20.1529 -3.5048,-46.8776 1.3143,-27.6008 0.8762,-41.1822 9.6384,-35.4868 0.4381,-57.3922 16.21,-104.26976 16.21,-94.63139 7.0799,-1.77845 3.8728,-6.54561 -2.6286,-6.13351 -4.3811,-4.38109 v -6.57162 l 3.5048,-16.21001 -3.0667,-14.01946 4.8192,-7.88595 1.7524,-3.94298 -4.3811,-5.2573 0.4381,-11.82892 6.5717,-7.44784 -0.4381,-16.64812 5.6954,-7.44784 3.0667,-18.40055 -0.4381,-6.13351 19.7149,-16.21001 24.7576,-32.66802 16.7287,-36.55515 26.6419,-55.76208 9.9132,-30.35935 6.1958,-31.9083 1.549,-15.79926 -28.1909,-31.59851 -33.767,-26.64189 -24.7832,-14.86989 -41.5117,-17.3482 -53.5936,-21.06567 -74.0396,-38.10409 -69.08307,-39.34325 -16.67239,-13.66462 3.94297,9.63839 3.06676,16.21 -9.63838,31.5438 -27.16271,44.68704 -25.84839,28.91515 -56.51597,49.94435 -49.06813,39.42974 -65.27814,-1.75243 -28.03893,-24.09596 -77.54517,-68.34489 -35.92488,-45.12515 -23.65784,-49.06813 -2.19054,-17.08623 2.62865,-8.76216 z m 122.67032,871.39739 28.03893,12.26703 59.14462,20.15298 36.36299,12.70515 39.42975,12.70514 31.10568,9.63838 24.53407,8.76216 3.94297,-3.06675 v -3.94298 l 0.43811,-8.76216 5.2573,-9.20028 6.13352,-10.95271 2.62865,-13.58135 0.87621,-2.62865 7.00974,-6.13352 3.94297,-2.62865 -2.19054,-3.06676 -1.31433,-5.6954 v -1.75244 l 7.00974,-3.50486 -0.43811,-10.95271 -2.62865,-4.38108 3.94297,-8.32406 -2.62865,-7.44784 0.87622,-7.44784 -3.94297,-7.00974 0.4381,-6.57162 1.75244,-6.13352 -1.31433,-14.89568 -2.62865,-10.07649 -8.32405,-20.59109 1.31432,-5.2573 1.31433,-11.82892 -3.06676,-10.07649 -2.19054,-5.2573 -8.76217,-5.69541 -7.88595,-16.64812 -15.33379,-15.77189 -13.86638,-21.91959 -5.42131,-11.6171 -18.38962,-38.53213 -13.80041,-31.54379 -12.9242,-30.22948 -6.57162,-28.03893 -3.50487,-17.96244 -17.30528,28.6961 -17.08622,33.07717 -13.14325,34.3915 -10.95271,37.02015 -9.63838,32.85813 -13.3623,44.68704 -8.76217,30.22947 -2.19054,6.79068 -1.53338,4.60014 -6.13351,19.27676 -27.60083,71.63071 -3.94297,7.00973 z m 1197.6456,877.32342 6.8154,4.95663 9.9132,25.40273 9.2937,27.88104 0.6196,7.43494 8.6741,4.33705 37.7943,-6.19578 68.1536,-19.82652 47.7076,-16.72863 37.7943,-15.48946 25.4027,-15.48947 -3.7174,-8.05452 -16.1091,-39.03346 -9.9132,-22.30483 -24.1636,-88.59976 -18.5874,-73.11028 -17.3482,-56.38166 -14.8699,-32.83767 -24.1635,-32.83767 -1.2392,16.72862 -6.8154,29.1202 -9.9132,30.97893 -14.2503,34.07683 -18.5874,42.13135 -13.0111,21.06568 -8.0546,11.15241 -8.6741,13.01116 -12.3915,9.91326 -6.1958,5.5762 -6.1958,8.05453 -0.301,9.75761 -0.8762,10.07649 -1.9715,4.60014 -3.0668,2.19054 -1.3143,1.97149 -0.6571,4.38108 0.6571,5.47636 0.6572,4.60013 -2.6287,4.38109 -4.3811,3.94297 -0.8762,4.16203 -1.0952,7.66689 0.8762,2.62865 3.7239,4.16203 0.219,3.28581 -3.7239,4.8192 -2.1905,3.28581 1.3143,7.88595 0.6572,6.79068 -0.6572,5.03824 -1.0953,7.44784 -0.8762,6.13352 1.3143,5.69541 1.9715,2.8477 2.1906,2.19054 -1.0953,5.47635 z",
-    zones: {
-      body: "m 589.21933,316.60471 -37.7943,27.88104 -59.47955,31.59851 -45.84883,24.78315 -60.71871,21.68525 -61.95787,25.40273 -41.51177,35.93556 -32.83767,38.41388 13.01115,45.84883 25.40273,59.47955 30.97894,62.57745 22.30483,26.64188 9.29368,16.72863 9.29368,6.19578 3.09789,9.91326 1.23916,4.95663 -3.71747,13.01115 8.6741,17.34821 1.85873,9.29368 1.85874,19.82651 -4.33705,11.15242 5.57621,6.81537 -0.61958,10.53283 2.47831,4.33706 -3.09789,9.91325 4.95663,14.25031 -4.95663,3.0979 -3.71747,6.81536 10.53284,11.772 35.93556,241.01611 0.61958,14.8699 -6.81537,43.9901 2.47832,26.0223 9.91326,35.316 9.91326,20.4461 -9.29368,27.2614 0.61957,20.4461 v 21.6853 l 4.95663,21.0656 v 5.5763 l -9.91325,33.4572 -3.0979,22.3048 v 27.2615 l 1.85874,23.544 0.61958,19.2069 3.71747,6.1958 -11.15242,35.9356 -5.57621,29.1202 -5.5762,26.0223 -3.71748,35.9355 1.85874,29.1202 2.47831,21.6853 0.61958,30.3594 -6.19578,43.3705 -4.33705,36.5551 4.33705,18.5874 34.6964,22.9244 94.17596,34.0768 109.04585,21.6853 133.829,9.9132 105.94795,-1.2391 120.19827,-16.7287 94.176,-22.3048 54.5229,-22.3048 41.5118,-27.8811 -4.9567,-45.2292 -5.5762,-61.9579 -3.7175,-59.4795 -6.2992,-35.8537 3.0667,-26.9437 5.9145,-28.0389 -1.7526,-46.0906 -4.9566,-37.4845 -14.9772,-54.21 -10.9527,-28.0389 7.4479,-29.7914 2.6286,-18.8386 -0.8762,-8.3241 3.943,-19.7149 2.6286,-20.1529 -3.5048,-46.8776 1.3143,-27.6008 0.8762,-41.1822 9.6384,-35.4868 0.4381,-57.3922 16.21,-104.26976 16.21,-94.63139 7.0799,-1.77845 3.8728,-6.54561 -2.6286,-6.13351 -4.3811,-4.38109 v -6.57162 l 3.5048,-16.21001 -3.0667,-14.01946 4.8192,-7.88595 1.7524,-3.94298 -4.3811,-5.2573 0.4381,-11.82892 6.5717,-7.44784 -0.4381,-16.64812 5.6954,-7.44784 3.0667,-18.40055 -0.4381,-6.13351 19.7149,-16.21001 24.7576,-32.66802 16.7287,-36.55515 26.6419,-55.76208 9.9132,-30.35935 6.1958,-31.9083 1.549,-15.79926 -28.1909,-31.59851 -33.767,-26.64189 -24.7832,-14.86989 -41.5117,-17.3482 -53.5936,-21.06567 -74.0396,-38.10409 -69.08307,-39.34325 -16.67239,-13.66462 3.94297,9.63839 3.06676,16.21 -9.63838,31.5438 -27.16271,44.68704 -25.84839,28.91515 -56.51597,49.94435 -49.06813,39.42974 -65.27814,-1.75243 -28.03893,-24.09596 -77.54517,-68.34489 -35.92488,-45.12515 -23.65784,-49.06813 -2.19054,-17.08623 2.62865,-8.76216 z",
-      sleeveL: "m 122.67032,871.39739 28.03893,12.26703 59.14462,20.15298 36.36299,12.70515 39.42975,12.70514 31.10568,9.63838 24.53407,8.76216 3.94297,-3.06675 v -3.94298 l 0.43811,-8.76216 5.2573,-9.20028 6.13352,-10.95271 2.62865,-13.58135 0.87621,-2.62865 7.00974,-6.13352 3.94297,-2.62865 -2.19054,-3.06676 -1.31433,-5.6954 v -1.75244 l 7.00974,-3.50486 -0.43811,-10.95271 -2.62865,-4.38108 3.94297,-8.32406 -2.62865,-7.44784 0.87622,-7.44784 -3.94297,-7.00974 0.4381,-6.57162 1.75244,-6.13352 -1.31433,-14.89568 -2.62865,-10.07649 -8.32405,-20.59109 1.31432,-5.2573 1.31433,-11.82892 -3.06676,-10.07649 -2.19054,-5.2573 -8.76217,-5.69541 -7.88595,-16.64812 -15.33379,-15.77189 -13.86638,-21.91959 -5.42131,-11.6171 -18.38962,-38.53213 -13.80041,-31.54379 -12.9242,-30.22948 -6.57162,-28.03893 -3.50487,-17.96244 -17.30528,28.6961 -17.08622,33.07717 -13.14325,34.3915 -10.95271,37.02015 -9.63838,32.85813 -13.3623,44.68704 -8.76217,30.22947 -2.19054,6.79068 -1.53338,4.60014 -6.13351,19.27676 -27.60083,71.63071 -3.94297,7.00973 z",
-      sleeveR: "m 1197.6456,877.32342 6.8154,4.95663 9.9132,25.40273 9.2937,27.88104 0.6196,7.43494 8.6741,4.33705 37.7943,-6.19578 68.1536,-19.82652 47.7076,-16.72863 37.7943,-15.48946 25.4027,-15.48947 -3.7174,-8.05452 -16.1091,-39.03346 -9.9132,-22.30483 -24.1636,-88.59976 -18.5874,-73.11028 -17.3482,-56.38166 -14.8699,-32.83767 -24.1635,-32.83767 -1.2392,16.72862 -6.8154,29.1202 -9.9132,30.97893 -14.2503,34.07683 -18.5874,42.13135 -13.0111,21.06568 -8.0546,11.15241 -8.6741,13.01116 -12.3915,9.91326 -6.1958,5.5762 -6.1958,8.05453 -0.301,9.75761 -0.8762,10.07649 -1.9715,4.60014 -3.0668,2.19054 -1.3143,1.97149 -0.6571,4.38108 0.6571,5.47636 0.6572,4.60013 -2.6287,4.38109 -4.3811,3.94297 -0.8762,4.16203 -1.0952,7.66689 0.8762,2.62865 3.7239,4.16203 0.219,3.28581 -3.7239,4.8192 -2.1905,3.28581 1.3143,7.88595 0.6572,6.79068 -0.6572,5.03824 -1.0953,7.44784 -0.8762,6.13352 1.3143,5.69541 1.9715,2.8477 2.1906,2.19054 -1.0953,5.47635 z",
-      cuffL: "m 137.23668,809.16977 -16.41884,42.44114 41.20199,17.03841 57.62081,20.13631 47.39777,16.41883 49.25651,15.79926 21.68525,6.19579 8.98389,-21.99505 7.12516,-20.44609 -34.69641,-11.772 -43.68029,-14.86989 -45.22925,-15.17968 -44.91945,-15.48946 -33.76704,-12.08179 z",
-      cuffR: "m 1242.2553,882.58984 19.8265,43.06072 13.9405,0.92937 20.4461,-3.40769 38.4139,-9.60347 85.5018,-29.42998 41.5118,-19.51673 16.1091,-9.29368 -8.9839,-24.78315 -6.5056,-19.51673 -13.3209,7.43495 -30.979,15.48946 -42.7509,15.79926 -43.6803,13.32094 -52.3544,16.10905 -25.0929,4.33705 z",
-      collar: "m 605.02755,254.60866 -3.50487,10.09343 v 17.55378 l 11.82893,28.96375 21.4673,36.86294 28.47704,32.4745 60.89706,54.85557 39.86785,33.35219 21.0292,5.94961 16.21,-0.68347 21.0292,-0.43885 10.07649,1.75539 34.61056,-25.89183 59.14462,-52.66136 53.44921,-61.87709 20.15296,-49.58944 -1.7524,-21.50339 -3.50488,-7.46035 -21.46731,-17.99263 -25.84838,-24.13646 9.20027,16.23725 4.81919,13.60419 -2.19054,15.35956 -1.75243,7.46036 -11.82893,25.89183 -23.65785,33.79104 -63.08759,62.31592 -54.32543,48.27292 -2.19054,1.31653 -38.82056,-36.71175 -47.04866,-43.15797 -20.15299,-20.6257 -26.28649,-29.84143 -17.52433,-27.64721 -10.95271,-32.4745 -0.87622,-18.87032 -0.87621,-8.33805 z",
-      patternZones: ['body'],
-      badgeL:  {cx:555,  cy:660, r:72},
-      badgeR:  {cx:1045, cy:660, r:72},
-      sponsor: {x:490, y:1020, w:620, h:160},
-      nameY: 680, numberY: 1500, numberSize: 600
-    }
-  },
-  vneck_back: {
-    src: 'shirt_back.jpeg',
-    w: 1638, h: 2048,
-    mask: "m 990.37423,381.30359 -46.31475,0.63445 h -32.99133 l -33.62577,3.17225 -55.19703,1.90334 -64.0793,-2.53779 -55.83148,-3.80669 -34.89467,-0.63445 -24.10904,2.53779 -75.49938,34.89467 -52.65924,22.84015 -35.52912,14.59232 -39.33581,19.6679 -34.89467,24.7435 -5.71004,8.88228 9.51673,10.78562 12.05452,29.81909 5.71004,22.84015 11.42008,43.1425 5.71003,26.01239 2.5378,19.66791 3.17224,28.55018 6.97893,32.35688 7.61339,26.64684 13.32342,22.2057 28.55018,128.79306 6.97894,30.45353 3.17224,26.64684 2.53779,28.55019 1.90335,27.28131 0.63445,36.1635 -0.63445,28.5502 1.2689,25.378 1.26889,12.0545 4.44114,11.4201 -6.34448,50.7559 -3.17224,22.2057 1.26889,8.8822 -1.26889,25.378 -1.90335,26.6468 -0.63445,10.1512 0.63445,11.4201 -6.34449,21.5712 -5.07558,19.0335 -1.2689,16.4956 v 12.689 l 2.53779,10.1512 -3.80669,28.5502 -5.71004,38.7013 -6.34448,36.7981 0.63445,25.3779 -3.17225,36.798 -0.63444,40.6047 -3.8067,44.4114 -6.97893,15.8612 -3.80669,17.7646 6.34448,22.2057 13.95787,3.1722 48.2181,14.5924 26.64684,7.6133 57.73482,6.3445 67.88599,-0.6344 63.44486,-1.9034 h 83.74721 l 59.63817,-1.9033 38.06691,-1.2689 54.56258,5.71 64.71378,-3.1722 48.8525,-12.689 37.4325,-13.9578 10.7856,-3.8067 8.8823,-5.0756 -0.6345,-34.2603 -5.0755,-15.2267 -4.4412,-25.378 -5.0756,-48.8525 3.8067,-39.9703 -2.5378,-37.4324 -3.1722,-39.9703 -3.8067,-41.8736 -3.8067,-28.5502 -5.71,-21.5712 -1.9034,-41.2392 -6.3445,-31.088 -3.8067,-39.9702 1.2689,-45.6803 -2.5378,-46.9492 -2.5378,-58.3693 2.5378,-26.6468 -1.9033,-42.50808 6.3445,-61.54152 10.7856,-43.1425 12.689,-71.05824 10.1512,-29.18463 11.42,-25.37795 13.9579,-58.36927 9.5167,-26.64684 5.7101,-53.92813 6.9789,-37.43246 12.689,-49.48699 10.7856,-27.91574 5.71,-9.51673 -43.1425,-31.72243 -34.8946,-17.13011 -52.6593,-19.6679 -32.9913,-15.86122 -16.4957,-6.97893 -31.0879,-13.95787 z m 400.33705,508.19331 -30.45353,43.1425 -22.84015,42.50806 -22.84015,45.68029 -22.2057,58.36927 -29.18463,90.0917 -8.88228,36.79802 -2.5378,8.88228 29.81909,10.78562 43.1425,16.49567 59.63817,19.03345 46.94919,10.15118 32.35688,2.5378 3.17224,-18.39901 1.90335,-8.24783 1.26889,-17.76456 1.2689,-15.22677 6.97893,-17.13011 -8.88228,-41.87361 -20.30235,-42.50805 -10.15118,-62.17596 -4.44114,-28.55019 -12.05452,-45.04585 -6.97893,-36.79801 -9.51673,-25.37795 z m 1234.0025,505.02107 -10.1512,20.30235 -9.5167,31.72243 -10.1512,35.52912 -4.4411,38.06691 -5.8067,37.43247 -6.2479,32.99133 -9.5167,26.01239 -8.2478,33.62577 -5.0756,19.66791 -11.4201,26.01239 -4.4411,10.78563 5.0756,17.13011 1.2689,17.13011 6.3444,11.42007 v 9.51673 l 32.9914,-6.34448 54.5625,-10.78563 52.6593,-18.39901 64.7137,-19.03346 -4.4411,-26.64684 -34.8947,-111.0285 -39.3358,-89.45725 -23.4746,-46.31474 z",
-    zones: {
-      body: "m 990.37423,381.30359 -46.31475,0.63445 h -32.99133 l -33.62577,3.17225 -55.19703,1.90334 -64.0793,-2.53779 -55.83148,-3.80669 -34.89467,-0.63445 -24.10904,2.53779 -75.49938,34.89467 -52.65924,22.84015 -35.52912,14.59232 -39.33581,19.6679 -34.89467,24.7435 -5.71004,8.88228 9.51673,10.78562 12.05452,29.81909 5.71004,22.84015 11.42008,43.1425 5.71003,26.01239 2.5378,19.66791 3.17224,28.55018 6.97893,32.35688 7.61339,26.64684 13.32342,22.2057 28.55018,128.79306 6.97894,30.45353 3.17224,26.64684 2.53779,28.55019 1.90335,27.28131 0.63445,36.1635 -0.63445,28.5502 1.2689,25.378 1.26889,12.0545 4.44114,11.4201 -6.34448,50.7559 -3.17224,22.2057 1.26889,8.8822 -1.26889,25.378 -1.90335,26.6468 -0.63445,10.1512 0.63445,11.4201 -6.34449,21.5712 -5.07558,19.0335 -1.2689,16.4956 v 12.689 l 2.53779,10.1512 -3.80669,28.5502 -5.71004,38.7013 -6.34448,36.7981 0.63445,25.3779 -3.17225,36.798 -0.63444,40.6047 -3.8067,44.4114 -6.97893,15.8612 -3.80669,17.7646 6.34448,22.2057 13.95787,3.1722 48.2181,14.5924 26.64684,7.6133 57.73482,6.3445 67.88599,-0.6344 63.44486,-1.9034 h 83.74721 l 59.63817,-1.9033 38.06691,-1.2689 54.56258,5.71 64.71378,-3.1722 48.8525,-12.689 37.4325,-13.9578 10.7856,-3.8067 8.8823,-5.0756 -0.6345,-34.2603 -5.0755,-15.2267 -4.4412,-25.378 -5.0756,-48.8525 3.8067,-39.9703 -2.5378,-37.4324 -3.1722,-39.9703 -3.8067,-41.8736 -3.8067,-28.5502 -5.71,-21.5712 -1.9034,-41.2392 -6.3445,-31.088 -3.8067,-39.9702 1.2689,-45.6803 -2.5378,-46.9492 -2.5378,-58.3693 2.5378,-26.6468 -1.9033,-42.50808 6.3445,-61.54152 10.7856,-43.1425 12.689,-71.05824 10.1512,-29.18463 11.42,-25.37795 13.9579,-58.36927 9.5167,-26.64684 5.7101,-53.92813 6.9789,-37.43246 12.689,-49.48699 10.7856,-27.91574 5.71,-9.51673 -43.1425,-31.72243 -34.8946,-17.13011 -52.6593,-19.6679 -32.9913,-15.86122 -16.4957,-6.97893 -31.0879,-13.95787 z",
-      sleeveL: "m 400.33705,508.19331 -30.45353,43.1425 -22.84015,42.50806 -22.84015,45.68029 -22.2057,58.36927 -29.18463,90.0917 -8.88228,36.79802 -2.5378,8.88228 29.81909,10.78562 43.1425,16.49567 59.63817,19.03345 46.94919,10.15118 32.35688,2.5378 3.17224,-18.39901 1.90335,-8.24783 1.26889,-17.76456 1.2689,-15.22677 6.97893,-17.13011 -8.88228,-41.87361 -20.30235,-42.50805 -10.15118,-62.17596 -4.44114,-28.55019 -12.05452,-45.04585 -6.97893,-36.79801 -9.51673,-25.37795 z",
-      sleeveR: "m 1234.0025,505.02107 -10.1512,20.30235 -9.5167,31.72243 -10.1512,35.52912 -4.4411,38.06691 -5.8067,37.43247 -6.2479,32.99133 -9.5167,26.01239 -8.2478,33.62577 -5.0756,19.66791 -11.4201,26.01239 -4.4411,10.78563 5.0756,17.13011 1.2689,17.13011 6.3444,11.42007 v 9.51673 l 32.9914,-6.34448 54.5625,-10.78563 52.6593,-18.39901 64.7137,-19.03346 -4.4411,-26.64684 -34.8947,-111.0285 -39.3358,-89.45725 -23.4746,-46.31474 z",
-      cuffL: "m 260.6499,833.09271 -0.89725,11.21557 -4.93485,18.39354 -4.93485,12.11282 -3.58898,13.90731 16.15042,6.72934 37.68432,14.35593 52.04026,17.49629 48.45127,13.01007 41.27331,6.72934 20.63665,-0.44862 8.07521,-16.15043 4.48623,-20.63665 -0.89724,-14.35593 -22.43115,-4.03761 -54.73199,-11.21557 -60.11547,-17.94491 -39.47881,-15.25318 z",
-      cuffR: "m 1179.4296,874.81464 -11.2156,2.24311 -6.2807,0.89725 -1.3459,10.31832 0.4486,13.01007 3.589,14.80455 5.8321,14.35593 5.3835,4.48623 36.7871,-4.48623 47.1054,-10.31832 56.5265,-16.59905 38.5815,-11.21557 28.7119,-8.97246 -8.9725,-29.60911 -3.5889,-15.7018 -2.2432,-11.6642 -29.6091,7.62659 -29.6091,10.76695 -26.4687,8.97246 -29.6091,9.42108 -47.1054,9.42108 z",
-      collar: "m 687.10781,327.37547 -13.95787,21.57125 -10.78563,17.76456 -13.95787,12.05452 -6.34448,5.07559 31.72243,-2.5378 53.92813,1.90335 39.97026,0.63445 49.48699,2.53779 66.6171,-1.26889 50.12143,-3.17225 38.70137,-0.63445 19.03345,0.63445 -16.49566,-12.05452 -8.88228,-10.15118 -8.88228,-19.03345 -5.71004,-13.32342 -15.22676,-5.71004 -15.86122,3.17224 h -12.68897 l -29.81908,-3.17224 -39.97026,-1.2689 -38.70136,-0.63445 -39.33582,1.90335 -27.91573,3.17224 -22.84015,0.63445 z",
-      patternZones: ['body'],
-      badgeL: null, badgeR: null, sponsor: null,
-      nameY: 700, numberY: 1520, numberSize: 620
-    }
-  }
-};
 
+<!-- Shirt templates — add new <script> tags here for each new shirt -->
+<script src="shirts/vneck.js"></script>
 
-function toggleSec(id){var b=document.getElementById('body-'+id),a=document.getElementById('arr-'+id),o=b.classList.contains('open');b.classList.toggle('open',!o);a.classList.toggle('open',!o);}
-function onHex(k,v){if(/^#[0-9a-fA-F]{6}$/.test(v)){S['col'+k]=v;document.getElementById('prev'+k).style.background=v;document.getElementById('pick'+k).value=v;redraw();}}
-function applyPick(k,v){S['col'+k]=v;document.getElementById('hex'+k).value=v;document.getElementById('prev'+k).style.background=v;redraw();}
-function setKitStyle(el,s){document.querySelectorAll('.ktab').forEach(function(t){t.classList.remove('on');});el.classList.add('on');S.style=s;redraw();}
-function loadImg(k,inp){var r=new FileReader();r.onload=function(e){S[k+'Url']=e.target.result;redraw();};r.readAsDataURL(inp.files[0]);}
-function setShirt(s){S.shirt=s;setView(S.view);}
-function setFmt(el,f){document.querySelectorAll('.fmt-btn').forEach(function(b){b.classList.remove('on');});el.classList.add('on');S.fmt=f;}
-function luma(h){var r=parseInt(h.slice(1,3),16),g=parseInt(h.slice(3,5),16),b=parseInt(h.slice(5,7),16);return 0.299*r+0.587*g+0.114*b;}
+<!-- Pattern library — add new <script> tags here for each new pattern -->
+<script src="patterns/stripe.js"></script>
+<script src="patterns/hoop.js"></script>
+<script src="patterns/geo.js"></script>
+<script src="patterns/halftone.js"></script>
 
-function setView(v){
-  S.view=v;
-  document.getElementById('vFront').classList.toggle('on',v==='front');
-  document.getElementById('vBack').classList.toggle('on',v==='back');
-  var T=SHIRTS[S.shirt+'_'+v];
-  if(T){
-    document.getElementById('shirtImg').src=T.src;
-    document.getElementById('colourSvg').setAttribute('viewBox','0 0 '+T.w+' '+T.h);
-    document.getElementById('logosSvg').setAttribute('viewBox','0 0 '+T.w+' '+T.h);
-  }
-  redraw();
-}
-
-function pattern(style,pB,W,H){
-  var s='';
-  switch(style){
-    case 'solid': return '';
-    case 'stripe': for(var x=0;x<W;x+=56)s+='<rect x="'+x+'" y="0" width="28" height="'+H+'" fill="'+pB+'" opacity="0.25"/>'; return s;
-    case 'hoop':   for(var y=0;y<H;y+=68)s+='<rect x="0" y="'+y+'" width="'+W+'" height="34" fill="'+pB+'" opacity="0.28"/>'; return s;
-    case 'geo':
-      for(var gy=-28;gy<H+28;gy+=42) for(var gx=-28;gx<W+28;gx+=42)
-        s+='<path d="M'+(gx+21)+','+gy+' L'+(gx+42)+','+(gy+21)+' L'+(gx+21)+','+(gy+42)+' L'+gx+','+(gy+21)+' Z" fill="none" stroke="'+pB+'" stroke-width="2" opacity="0.22"/>';
-      return s;
-    case 'halftone':
-      for(var hy=11;hy<H;hy+=21) for(var hx=11;hx<W;hx+=21){var o=(Math.floor(hy/21)%2)*10.5;s+='<circle cx="'+(hx+o)+'" cy="'+hy+'" r="4.5" fill="'+pB+'" opacity="0.22"/>';}
-      return s;
-    default: return '';
-  }
-}
-
-function redraw(){
-  var T=SHIRTS[S.shirt+'_'+S.view];
-  if(!T) return;
-  var colSvg=document.getElementById('colourSvg');
-  var logSvg=document.getElementById('logosSvg');
-  var z=T.zones, W=T.w, H=T.h;
-  var pA=S.colA,pB=S.colB,pC=S.colC,pD=S.colD;
-  var pat=pattern(S.style,pB,W,H);
-  var tCol=luma(pA)>145?'rgba(0,0,0,0.78)':'rgba(255,255,255,0.9)';
-  var tFaint=luma(pA)>145?'rgba(0,0,0,0.12)':'rgba(255,255,255,0.18)';
-
-  var defs='';
-  ['body','sleeveL','sleeveR','cuffL','cuffR','collar'].forEach(function(k){
-    if(z[k]) defs+='<clipPath id="z_'+k+'"><path d="'+z[k]+'"/></clipPath>';
-  });
-
-  var patRects='';
-  (z.patternZones||['body']).forEach(function(k){ if(z[k]) patRects+='<g clip-path="url(#z_'+k+')">';+pat+'</g>'; });
-
-  var zr='';
-  if(z.body)    zr+='<rect x="0" y="0" width="'+W+'" height="'+H+'" fill="'+pA+'" clip-path="url(#z_body)"/>';
-  if(z.sleeveL) zr+='<rect x="0" y="0" width="'+W+'" height="'+H+'" fill="'+pB+'" clip-path="url(#z_sleeveL)"/>';
-  if(z.sleeveR) zr+='<rect x="0" y="0" width="'+W+'" height="'+H+'" fill="'+pB+'" clip-path="url(#z_sleeveR)"/>';
-  if(z.cuffL)   zr+='<rect x="0" y="0" width="'+W+'" height="'+H+'" fill="'+pC+'" clip-path="url(#z_cuffL)"/>';
-  if(z.cuffR)   zr+='<rect x="0" y="0" width="'+W+'" height="'+H+'" fill="'+pC+'" clip-path="url(#z_cuffR)"/>';
-  if(z.collar)  zr+='<rect x="0" y="0" width="'+W+'" height="'+H+'" fill="'+pD+'" clip-path="url(#z_collar)"/>';
-
-  colSvg.innerHTML='<defs>'+defs+'</defs>'+zr+patRects;
-
-  if(S.view==='front'){
-    var sponTxt=(document.getElementById('sponsorTxt').value||'').toUpperCase();
-    var lc='';
-    if(z.badgeL){var r=z.badgeL.r;lc+='<g transform="translate('+z.badgeL.cx+','+z.badgeL.cy+')" opacity="0.65"><polygon points="0,-'+(r*.7)+' '+(r*.6)+',-'+(r*.35)+' '+(r*.6)+','+(r*.35)+' 0,'+(r*.7)+' -'+(r*.6)+','+(r*.35)+' -'+(r*.6)+',-'+(r*.35)+'" fill="none" stroke="'+tCol+'" stroke-width="4"/><text x="0" y="'+(r*.14)+'" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="'+(r*.36)+'" font-weight="900" fill="'+tCol+'">AS</text></g>';}
-    if(z.badgeR){var r2=z.badgeR.r;if(S.badgeUrl){lc+='<defs><clipPath id="bcR"><circle cx="'+z.badgeR.cx+'" cy="'+z.badgeR.cy+'" r="'+r2+'"/></clipPath></defs><image href="'+S.badgeUrl+'" x="'+(z.badgeR.cx-r2)+'" y="'+(z.badgeR.cy-r2)+'" width="'+(r2*2)+'" height="'+(r2*2)+'" clip-path="url(#bcR)"/>';}else{lc+='<g transform="translate('+z.badgeR.cx+','+z.badgeR.cy+')" opacity="0.55"><polygon points="0,-'+(r2*.7)+' '+(r2*.6)+',-'+(r2*.35)+' '+(r2*.6)+','+(r2*.35)+' 0,'+(r2*.7)+' -'+(r2*.6)+','+(r2*.35)+' -'+(r2*.6)+',-'+(r2*.35)+'" fill="none" stroke="'+tCol+'" stroke-width="4"/><text x="0" y="'+(r2*.14)+'" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="'+(r2*.36)+'" font-weight="900" fill="'+tCol+'">CREST</text></g>';}}
-    if(z.sponsor){var sZ=z.sponsor,cx2=Math.round(sZ.x+sZ.w/2),cy2=Math.round(sZ.y+sZ.h*.65);if(S.sponsorUrl){lc+='<image href="'+S.sponsorUrl+'" x="'+sZ.x+'" y="'+sZ.y+'" width="'+sZ.w+'" height="'+sZ.h+'" preserveAspectRatio="xMidYMid meet"/>';}else if(sponTxt){var ew=sponTxt.length*44,fs=ew>sZ.w?Math.max(36,Math.floor(80*(sZ.w/ew))):80;lc+='<text x="'+cx2+'" y="'+cy2+'" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="'+fs+'" font-weight="900" letter-spacing="4" fill="'+tCol+'">'+sponTxt+'</text>';}else{lc+='<text x="'+cx2+'" y="'+cy2+'" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="56" font-weight="900" fill="'+tFaint+'">CLUB SPONSOR</text>';}}
-    logSvg.innerHTML=lc;
-  } else {
-    var pName=(document.getElementById('pName').value||'').toUpperCase();
-    var pNum=document.getElementById('pNum').value||'';
-    var font=document.getElementById('numFont').value;
-    var nfs=pName.length>10?Math.max(60,Math.floor(z.numberSize*0.2*(10/pName.length))):Math.floor(z.numberSize*0.2);
-    var cx3=Math.round(W/2);
-    logSvg.innerHTML=(pName?'<text x="'+cx3+'" y="'+z.nameY+'" text-anchor="middle" font-family="'+font+'" font-size="'+nfs+'" font-weight="900" letter-spacing="12" fill="'+tCol+'">'+pName+'</text>':'<text x="'+cx3+'" y="'+z.nameY+'" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="'+Math.floor(nfs*.65)+'" font-weight="700" fill="'+tFaint+'">PLAYER NAME</text>')
-      +(pNum?'<text x="'+cx3+'" y="'+z.numberY+'" text-anchor="middle" font-family="'+font+'" font-size="'+z.numberSize+'" font-weight="900" fill="'+tCol+'">'+pNum+'</text>':'<text x="'+cx3+'" y="'+z.numberY+'" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="'+Math.round(z.numberSize*.7)+'" font-weight="900" fill="'+tFaint+'">0</text>');
-  }
-}
-
-function exportKit(){
-  var fmt=S.fmt,T=SHIRTS[S.shirt+'_'+S.view],fn='achilles-kit-'+S.view+'.'+(fmt==='jpg'?'jpg':fmt);
-  if(fmt==='svg'){dlBlob(new Blob([document.getElementById('colourSvg').outerHTML],{type:'image/svg+xml'}),fn);return;}
-  var img=document.getElementById('shirtImg'),cv=document.createElement('canvas');
-  cv.width=T.w;cv.height=T.h;
-  var ctx=cv.getContext('2d');
-  if(fmt==='jpg'){ctx.fillStyle='#fff';ctx.fillRect(0,0,T.w,T.h);}
-  ctx.drawImage(img,0,0,T.w,T.h);
-  ctx.globalCompositeOperation='multiply';
-  var su=URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(document.getElementById('colourSvg'))],{type:'image/svg+xml;charset=utf-8'}));
-  var si=new Image();si.onload=function(){ctx.drawImage(si,0,0,T.w,T.h);URL.revokeObjectURL(su);ctx.globalCompositeOperation='source-over';var lu=URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(document.getElementById('logosSvg'))],{type:'image/svg+xml;charset=utf-8'}));var li=new Image();li.onload=function(){ctx.drawImage(li,0,0,T.w,T.h);URL.revokeObjectURL(lu);cv.toBlob(function(b){dlBlob(b,fn);},fmt==='jpg'?'image/jpeg':'image/png',0.95);};li.src=lu;};si.src=su;
-}
-function dlBlob(b,n){var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;a.click();setTimeout(function(){URL.revokeObjectURL(a.href);},2000);}
-
-var S={colA:'#e8e8e8',colB:'#1a2e6e',colC:'#c8102e',colD:'#1a2e6e',style:'solid',view:'front',shirt:'vneck',fmt:'png',badgeUrl:null,sponsorUrl:null};
-setView('front');
-
-</script>
+<!-- Core JS -->
+<script src="js/redraw.js"></script>
+<script src="js/export.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
