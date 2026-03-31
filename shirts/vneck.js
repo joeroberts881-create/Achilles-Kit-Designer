@@ -5,7 +5,7 @@
  * mask:  full shirt outline SVG path (from Inkscape)
  * zones: named SVG paths for each colourable region
  *        patternZones controls which zones receive the selected pattern
- */
+
 window.SHIRTS = window.SHIRTS || {};
 
 var VNECK_ZONES_FRONT = {
