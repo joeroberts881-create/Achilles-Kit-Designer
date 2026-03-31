@@ -1,0 +1,56 @@
+:root{--blue:#1e4fa3;--blue-hover:#163d82;--blue-light:#e8eef8;--blue-mid:#c2d1ee;--white:#ffffff;--off-white:#f5f7fa;--border:#dde3ed;--border-dark:#c4cedd;--text:#1a1a1a;--text-muted:#5a6a82;--text-dim:#8fa0bb}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--off-white);min-height:100vh;display:flex;align-items:flex-start;justify-content:center;font-family:'Barlow',sans-serif;color:var(--text)}
+.wrap{display:grid;grid-template-columns:300px 1fr;width:100%;min-height:100vh}
+.controls{background:var(--white);border-right:1px solid var(--border);overflow-y:auto;height:100vh;position:sticky;top:0}
+.panel-header{background:var(--blue);padding:18px 20px 16px}
+.panel-logo{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:3px}
+.panel-title{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:#fff;line-height:1}
+.sec{border-bottom:1px solid var(--border)}
+.sec-head{display:flex;align-items:center;justify-content:space-between;padding:11px 18px;cursor:pointer;user-select:none;transition:background .12s}
+.sec-head:hover{background:var(--off-white)}
+.sec-title{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--text-muted)}
+.sec-arrow{font-size:9px;color:var(--text-dim);transition:transform .2s}
+.sec-arrow.open{transform:rotate(180deg)}
+.sec-body{padding:14px 18px;display:none;border-top:1px solid var(--border);background:var(--off-white)}
+.sec-body.open{display:block}
+.plain-sec{padding:14px 18px;border-bottom:1px solid var(--border)}
+.lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+.colour-lbl{display:block;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px;margin-top:10px}
+.colour-lbl:first-child{margin-top:0}
+.hex-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.color-preview{width:30px;height:30px;border-radius:4px;border:1.5px solid var(--border-dark);flex-shrink:0;cursor:pointer;transition:border-color .12s}
+.color-preview:hover{border-color:var(--blue)}
+.hex-in{flex:1;background:var(--white);border:1.5px solid var(--border);border-radius:4px;color:var(--text);font-family:monospace;font-size:12px;padding:7px 10px;outline:none;transition:border-color .12s;letter-spacing:1px}
+.hex-in:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(30,79,163,0.1)}
+.kit-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:3px}
+.ktab{padding:7px 4px;background:var(--off-white);border:1px solid var(--border);border-radius:3px;color:var(--text-muted);font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.5px;cursor:pointer;text-align:center;transition:all .12s;text-transform:uppercase}
+.ktab:hover{background:var(--blue-light);border-color:var(--blue-mid);color:var(--blue)}
+.ktab.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.shirt-sel,.fnt-sel{width:100%;background:var(--white);border:1.5px solid var(--border);border-radius:4px;color:var(--text);font-family:'Barlow',sans-serif;font-size:13px;padding:9px 12px;outline:none;cursor:pointer}
+.txt-in{width:100%;background:var(--white);border:1.5px solid var(--border);border-radius:4px;color:var(--text);font-size:13px;padding:8px 12px;outline:none;margin-bottom:6px;font-family:'Barlow',sans-serif}
+.txt-in::placeholder{color:var(--text-dim)}
+.txt-in:focus,.shirt-sel:focus,.fnt-sel:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(30,79,163,0.1)}
+.up-box{border:1.5px dashed var(--border-dark);border-radius:6px;padding:12px;text-align:center;cursor:pointer;background:var(--white);margin-bottom:6px}
+.up-box:hover{border-color:var(--blue);background:var(--blue-light)}
+.up-title{font-size:11px;color:var(--text-muted);font-weight:500}
+.up-sub{font-size:10px;color:var(--text-dim);margin-top:2px}
+.export-wrap{padding:16px 18px;background:var(--white);border-top:2px solid var(--blue)}
+.export-row{display:flex;gap:4px;margin-top:8px}
+.fmt-btn{flex:1;padding:8px 4px;background:var(--off-white);border:1.5px solid var(--border);border-radius:4px;color:var(--text-muted);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;cursor:pointer;text-align:center;transition:all .12s;text-transform:uppercase;letter-spacing:1px}
+.fmt-btn:hover{background:var(--blue-light);border-color:var(--blue-mid);color:var(--blue)}
+.fmt-btn.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.export-btn{width:100%;margin-top:8px;padding:12px;background:var(--blue);border:none;border-radius:4px;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:900;letter-spacing:3px;text-transform:uppercase;cursor:pointer}
+.export-btn:hover{background:var(--blue-hover)}
+.canvas-area{background:var(--off-white);display:flex;flex-direction:column;align-items:center;padding:32px 40px;min-height:100vh}
+.canvas-header{width:100%;max-width:600px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.canvas-logo{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--text-dim)}
+.view-toggle{display:flex;border:1.5px solid var(--border-dark);border-radius:4px;overflow:hidden}
+.vtog{padding:8px 22px;background:var(--white);color:var(--text-muted);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;cursor:pointer;text-transform:uppercase;transition:all .12s;border:none}
+.vtog:first-child{border-right:1px solid var(--border-dark)}
+.vtog:hover{background:var(--blue-light);color:var(--blue)}
+.vtog.on{background:var(--blue);color:#fff}
+.mockup-wrap{position:relative;width:100%;max-width:600px;line-height:0}
+.shirt-base{width:100%;height:auto;display:block}
+.colour-overlay{position:absolute;top:0;left:0;width:100%;height:100%;mix-blend-mode:multiply;pointer-events:none;display:block}
+.logos-overlay{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;display:block}
