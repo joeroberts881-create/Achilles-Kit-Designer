@@ -34,6 +34,6 @@ window.SHIRTS.vneck_back = {
     badgeL:  null,
     badgeR:  null,
     sponsor: null,
-    nameY: 700, numberY: 1520, numberSize: 620
+    nameY: 520, numberY: 1080, numberSize: 620
   }
 };
