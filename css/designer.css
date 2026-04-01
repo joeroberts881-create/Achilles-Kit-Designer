@@ -54,3 +54,13 @@ body{background:var(--off-white);min-height:100vh;display:flex;align-items:flex-
 .shirt-base{width:100%;height:auto;display:block}
 .colour-overlay{position:absolute;top:0;left:0;width:100%;height:100%;mix-blend-mode:multiply;pointer-events:none;display:block}
 .logos-overlay{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;display:block}
+
+@media(max-width:680px){
+  .wrap{grid-template-columns:1fr;min-height:unset}
+  .controls{height:auto;position:static;overflow-y:visible}
+  .canvas-area{padding:20px 16px;min-height:unset}
+  .canvas-header{flex-wrap:wrap;gap:10px;margin-bottom:16px}
+  .canvas-logo{font-size:9px}
+  .view-toggle{margin-left:auto}
+  .mockup-wrap{max-width:100%}
+}
