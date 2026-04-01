@@ -5,7 +5,7 @@ var S = {
   colB: '#FFFFFF',
   colC: '#FFFFFF',
   colD: '#FFFFFF',
-  colE: '#ffffff',
+  colE: '#000000',
   style: 'solid',
   view:  'front',
   shirt: 'vneck',
