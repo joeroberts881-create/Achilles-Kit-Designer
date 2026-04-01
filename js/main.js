@@ -1,10 +1,10 @@
 /* main.js — state, boot, UI event handlers */
 
 var S = {
-  colA: '#e8e8e8',
-  colB: '#1a2e6e',
-  colC: '#c8102e',
-  colD: '#1a2e6e',
+  colA: '#FFFFFF',
+  colB: '#FFFFFF',
+  colC: '#FFFFFF',
+  colD: '#FFFFFF',
   style: 'solid',
   view:  'front',
   shirt: 'vneck',
