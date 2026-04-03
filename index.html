@@ -3,17 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ↓ Change this to update the browser tab title -->
 <title>Kit Designer — Achilles Sports</title>
+<!-- Google Fonts — Barlow Condensed is used for kit text; Barlow for the UI.
+     Add new font families here and then add them as <option> values in the
+     Name Font / Number Font selects below. -->
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/designer.css">
 </head>
 <body>
-<div class="wrap">
-  <div class="controls">
-    <div class="panel-header"><div class="panel-logo">Achilles Sports</div><div class="panel-title">Kit Designer</div><div class="panel-tagline">Choose a shirt, pick your colours, add logos &amp; export.</div></div>
 
+<!-- ═══════════════════════════════════════════════════════
+     PAGE LAYOUT
+     .wrap
+       ├── .controls   — left panel with all the settings
+       └── .canvas-area — right panel with the shirt preview
+     ═══════════════════════════════════════════════════════ -->
+<div class="wrap">
+
+  <!-- ┌─────────────────────────────────────────────────┐
+       │  LEFT PANEL — settings & controls               │
+       └─────────────────────────────────────────────────┘
+       Each collapsible section uses the pattern:
+         id="secXxx"           — on the outer .sec div
+         id="arr-secXxx"       — on the arrow span
+         id="body-secXxx"      — on the collapsible body
+         onclick="toggleSec('secXxx')" — on the header
+       To add a new section, copy a .sec block and follow
+       the same naming convention. -->
+  <div class="controls">
+
+    <!-- Branding header — change text here to rebrand -->
+    <div class="panel-header">
+      <div class="panel-logo">Achilles Sports</div>
+      <div class="panel-title">Kit Designer</div>
+      <div class="panel-tagline">Choose a shirt, pick your colours, add logos &amp; export.</div>
+    </div>
+
+    <!-- ── Shirt selector ─────────────────────────────────
+         Each <option> value must match a key registered in
+         window.SHIRTS inside the shirt's JS file (e.g. vneck.js).
+         Add a new <option> and a new <script src="shirts/xxx.js">
+         at the bottom of this file for each new shirt style. -->
     <div class="sec" id="secShirt">
-      <div class="sec-head" onclick="toggleSec('secShirt')"><span class="sec-title">Shirt</span><span class="sec-arrow open" id="arr-secShirt">&#9660;</span></div>
+      <div class="sec-head" onclick="toggleSec('secShirt')">
+        <span class="sec-title">Shirt</span>
+        <span class="sec-arrow open" id="arr-secShirt">&#9660;</span>
+      </div>
       <div class="sec-body open" id="body-secShirt">
         <!-- Add new <option> here when you add a new shirt to shirts/ -->
         <select class="shirt-sel" id="shirtSelect" onchange="setShirt(this.value)">
@@ -22,143 +58,349 @@
       </div>
     </div>
 
+    <!-- ── Pattern selector ───────────────────────────────
+         Each .ktab's data-pat value must match:
+           • a key in window.PATTERNS (set in that pattern's JS file)
+           • an entry in PREVIEW_SCALE in main.js (controls thumbnail zoom)
+         The "solid" tab is special — it means no pattern.
+         Add a new .ktab and a new <script src="patterns/xxx.js">
+         at the bottom of this file for each new pattern. -->
     <div class="sec" id="secPattern">
-      <div class="sec-head" onclick="toggleSec('secPattern')"><span class="sec-title">Pattern</span><span class="sec-arrow" id="arr-secPattern">&#9660;</span></div>
+      <div class="sec-head" onclick="toggleSec('secPattern')">
+        <span class="sec-title">Pattern</span>
+        <span class="sec-arrow" id="arr-secPattern">&#9660;</span>
+      </div>
       <div class="sec-body" id="body-secPattern">
         <!-- Add new .ktab here when you add a new pattern to patterns/ -->
         <div class="kit-tabs">
-          <div class="ktab on" data-pat="solid" onclick="setKitStyle(this,'solid')">None</div>
-          <div class="ktab" data-pat="stripe" onclick="setKitStyle(this,'stripe')">Stripe</div>
-          <div class="ktab" data-pat="hoop" onclick="setKitStyle(this,'hoop')">Hoop</div>
-          <div class="ktab" data-pat="geo" onclick="setKitStyle(this,'geo')">Geo</div>
-          <div class="ktab" data-pat="halftone" onclick="setKitStyle(this,'halftone')">Halftone</div>
+          <div class="ktab on" data-pat="solid"    onclick="setKitStyle(this,'solid')">None</div>
+          <div class="ktab"    data-pat="stripe"   onclick="setKitStyle(this,'stripe')">Stripe</div>
+          <div class="ktab"    data-pat="hoop"     onclick="setKitStyle(this,'hoop')">Hoop</div>
+          <div class="ktab"    data-pat="geo"      onclick="setKitStyle(this,'geo')">Geo</div>
+          <div class="ktab"    data-pat="halftone" onclick="setKitStyle(this,'halftone')">Halftone</div>
         </div>
+
+        <!-- Pattern sliders — hidden when style is "solid", shown otherwise.
+             min/max values here must match the limits in S (main.js). -->
         <div class="pat-opts" id="patOpts" style="display:none">
-          <div class="pat-opt-row"><span class="pat-opt-lbl">Opacity</span><span class="pat-opt-val" id="patOpacityVal">25%</span></div>
+          <div class="pat-opt-row">
+            <span class="pat-opt-lbl">Opacity</span>
+            <span class="pat-opt-val" id="patOpacityVal">25%</span>
+          </div>
           <input type="range" class="pat-slider" id="patOpacity" min="0" max="100" value="25" oninput="onPatOpt()">
-          <div class="pat-opt-row"><span class="pat-opt-lbl">Rotation</span><span class="pat-opt-val" id="patRotateVal">0°</span></div>
+
+          <div class="pat-opt-row">
+            <span class="pat-opt-lbl">Rotation</span>
+            <span class="pat-opt-val" id="patRotateVal">0°</span>
+          </div>
           <input type="range" class="pat-slider" id="patRotate" min="0" max="359" value="0" oninput="onPatOpt()">
-          <div class="pat-opt-row"><span class="pat-opt-lbl">Scale</span><span class="pat-opt-val" id="patScaleVal">100%</span></div>
+
+          <div class="pat-opt-row">
+            <span class="pat-opt-lbl">Scale</span>
+            <span class="pat-opt-val" id="patScaleVal">100%</span>
+          </div>
           <input type="range" class="pat-slider" id="patScale" min="25" max="400" value="100" oninput="onPatOpt()">
         </div>
       </div>
     </div>
 
+    <!-- ── Colours ────────────────────────────────────────
+         There are 5 colour slots, A–E:
+           A = Body
+           B = Sleeves
+           C = Sleeve Cuff
+           D = Collar
+           E = Pattern colour (hidden when style is "solid")
+
+         Each slot has:
+           id="prevX"  — the coloured preview square in the header
+           id="sp-X"   — the swatch grid (populated by buildSwatches() in main.js)
+           id="hexX"   — the hex text input
+           id="pickX"  — the hidden native colour picker (opened by clicking prevX)
+
+         To rename a slot label, change the text inside .col-sec-lbl.
+         To add a new slot, you'd also need to add colF to S in main.js
+         and handle it in redraw.js. -->
     <div class="sec" id="secColours">
-      <div class="sec-head" onclick="toggleSec('secColours')"><span class="sec-title">Colours</span><span class="sec-arrow" id="arr-secColours">&#9660;</span></div>
+      <div class="sec-head" onclick="toggleSec('secColours')">
+        <span class="sec-title">Colours</span>
+        <span class="sec-arrow" id="arr-secColours">&#9660;</span>
+      </div>
       <div class="sec-body" id="body-secColours">
+
+        <!-- Colour A — Body -->
         <div class="col-sec">
-          <div class="col-sec-head" onclick="toggleColSec(this)"><span class="col-sec-lbl">Body</span><div class="color-preview light" id="prevA" style="background:#ffffff"></div><span class="col-sec-arrow">&#9660;</span></div>
-          <div class="col-sec-body"><div class="swatch-picker" id="sp-A" data-key="A"></div><div class="hex-row"><input class="hex-in" id="hexA" value="#ffffff" maxlength="7" oninput="onHex('A',this.value)" placeholder="#ffffff"><input type="color" id="pickA" value="#ffffff" style="display:none" oninput="applyPick('A',this.value)"></div></div>
+          <div class="col-sec-head" onclick="toggleColSec(this)">
+            <span class="col-sec-lbl">Body</span><!-- ← rename slot label here -->
+            <div class="color-preview light" id="prevA" style="background:#ffffff"></div>
+            <span class="col-sec-arrow">&#9660;</span>
+          </div>
+          <div class="col-sec-body">
+            <div class="swatch-picker" id="sp-A" data-key="A"></div>
+            <div class="hex-row">
+              <input class="hex-in" id="hexA" value="#ffffff" maxlength="7" oninput="onHex('A',this.value)" placeholder="#ffffff">
+              <input type="color" id="pickA" value="#ffffff" style="display:none" oninput="applyPick('A',this.value)">
+            </div>
+          </div>
         </div>
+
+        <!-- Colour B — Sleeves -->
         <div class="col-sec">
-          <div class="col-sec-head" onclick="toggleColSec(this)"><span class="col-sec-lbl">Sleeves</span><div class="color-preview light" id="prevB" style="background:#ffffff"></div><span class="col-sec-arrow">&#9660;</span></div>
-          <div class="col-sec-body"><div class="swatch-picker" id="sp-B" data-key="B"></div><div class="hex-row"><input class="hex-in" id="hexB" value="#ffffff" maxlength="7" oninput="onHex('B',this.value)" placeholder="#ffffff"><input type="color" id="pickB" value="#ffffff" style="display:none" oninput="applyPick('B',this.value)"></div></div>
+          <div class="col-sec-head" onclick="toggleColSec(this)">
+            <span class="col-sec-lbl">Sleeves</span><!-- ← rename slot label here -->
+            <div class="color-preview light" id="prevB" style="background:#ffffff"></div>
+            <span class="col-sec-arrow">&#9660;</span>
+          </div>
+          <div class="col-sec-body">
+            <div class="swatch-picker" id="sp-B" data-key="B"></div>
+            <div class="hex-row">
+              <input class="hex-in" id="hexB" value="#ffffff" maxlength="7" oninput="onHex('B',this.value)" placeholder="#ffffff">
+              <input type="color" id="pickB" value="#ffffff" style="display:none" oninput="applyPick('B',this.value)">
+            </div>
+          </div>
         </div>
+
+        <!-- Colour C — Sleeve Cuff -->
         <div class="col-sec">
-          <div class="col-sec-head" onclick="toggleColSec(this)"><span class="col-sec-lbl">Sleeve Cuff</span><div class="color-preview light" id="prevC" style="background:#ffffff"></div><span class="col-sec-arrow">&#9660;</span></div>
-          <div class="col-sec-body"><div class="swatch-picker" id="sp-C" data-key="C"></div><div class="hex-row"><input class="hex-in" id="hexC" value="#ffffff" maxlength="7" oninput="onHex('C',this.value)" placeholder="#ffffff"><input type="color" id="pickC" value="#ffffff" style="display:none" oninput="applyPick('C',this.value)"></div></div>
+          <div class="col-sec-head" onclick="toggleColSec(this)">
+            <span class="col-sec-lbl">Sleeve Cuff</span><!-- ← rename slot label here -->
+            <div class="color-preview light" id="prevC" style="background:#ffffff"></div>
+            <span class="col-sec-arrow">&#9660;</span>
+          </div>
+          <div class="col-sec-body">
+            <div class="swatch-picker" id="sp-C" data-key="C"></div>
+            <div class="hex-row">
+              <input class="hex-in" id="hexC" value="#ffffff" maxlength="7" oninput="onHex('C',this.value)" placeholder="#ffffff">
+              <input type="color" id="pickC" value="#ffffff" style="display:none" oninput="applyPick('C',this.value)">
+            </div>
+          </div>
         </div>
+
+        <!-- Colour D — Collar -->
         <div class="col-sec">
-          <div class="col-sec-head" onclick="toggleColSec(this)"><span class="col-sec-lbl">Collar</span><div class="color-preview light" id="prevD" style="background:#ffffff"></div><span class="col-sec-arrow">&#9660;</span></div>
-          <div class="col-sec-body"><div class="swatch-picker" id="sp-D" data-key="D"></div><div class="hex-row"><input class="hex-in" id="hexD" value="#ffffff" maxlength="7" oninput="onHex('D',this.value)" placeholder="#ffffff"><input type="color" id="pickD" value="#ffffff" style="display:none" oninput="applyPick('D',this.value)"></div></div>
+          <div class="col-sec-head" onclick="toggleColSec(this)">
+            <span class="col-sec-lbl">Collar</span><!-- ← rename slot label here -->
+            <div class="color-preview light" id="prevD" style="background:#ffffff"></div>
+            <span class="col-sec-arrow">&#9660;</span>
+          </div>
+          <div class="col-sec-body">
+            <div class="swatch-picker" id="sp-D" data-key="D"></div>
+            <div class="hex-row">
+              <input class="hex-in" id="hexD" value="#ffffff" maxlength="7" oninput="onHex('D',this.value)" placeholder="#ffffff">
+              <input type="color" id="pickD" value="#ffffff" style="display:none" oninput="applyPick('D',this.value)">
+            </div>
+          </div>
         </div>
+
+        <!-- Colour E — Pattern colour (hidden unless a pattern is active) -->
         <div class="col-sec" id="patternColourRow" style="display:none">
-          <div class="col-sec-head" onclick="toggleColSec(this)"><span class="col-sec-lbl">Pattern</span><div class="color-preview" id="prevE" style="background:#000000"></div><span class="col-sec-arrow">&#9660;</span></div>
-          <div class="col-sec-body"><div class="swatch-picker" id="sp-E" data-key="E"></div><div class="hex-row"><input class="hex-in" id="hexE" value="#000000" maxlength="7" oninput="onHex('E',this.value)" placeholder="#000000"><input type="color" id="pickE" value="#000000" style="display:none" oninput="applyPick('E',this.value)"></div></div>
+          <div class="col-sec-head" onclick="toggleColSec(this)">
+            <span class="col-sec-lbl">Pattern</span>
+            <div class="color-preview" id="prevE" style="background:#000000"></div>
+            <span class="col-sec-arrow">&#9660;</span>
+          </div>
+          <div class="col-sec-body">
+            <div class="swatch-picker" id="sp-E" data-key="E"></div>
+            <div class="hex-row">
+              <input class="hex-in" id="hexE" value="#000000" maxlength="7" oninput="onHex('E',this.value)" placeholder="#000000">
+              <input type="color" id="pickE" value="#000000" style="display:none" oninput="applyPick('E',this.value)">
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
 
+    <!-- ── Logos & Sponsor ────────────────────────────────
+         Badge    = club crest image, placed on right chest.
+         Sponsor  = sponsor logo image OR sponsor text (not both).
+         If both a sponsor image and sponsor text are filled in,
+         the image takes priority and a conflict warning is shown.
+
+         maxlength on sponsorTxt controls the max sponsor text length.
+         The upload box text is updated dynamically by updateBadgeUI()
+         and updateSponsorUI() in main.js. -->
     <div class="sec" id="secLogos">
-      <div class="sec-head" onclick="toggleSec('secLogos')"><span class="sec-title">Logos &amp; Sponsor</span><span class="sec-arrow" id="arr-secLogos">&#9660;</span></div>
+      <div class="sec-head" onclick="toggleSec('secLogos')">
+        <span class="sec-title">Logos &amp; Sponsor</span>
+        <span class="sec-arrow" id="arr-secLogos">&#9660;</span>
+      </div>
       <div class="sec-body" id="body-secLogos">
+
+        <!-- Badge upload -->
         <div class="up-title" style="margin-bottom:6px">Club Badge (right chest)</div>
-        <div class="up-box" id="upBadgeBox" onclick="document.getElementById('upBadge').click()"><div class="up-title" id="upBadgeTitle">Upload crest — PNG / SVG</div><div class="up-sub">Front view right chest</div></div>
+        <div class="up-box" id="upBadgeBox" onclick="document.getElementById('upBadge').click()">
+          <div class="up-title" id="upBadgeTitle">Upload crest — PNG / SVG</div>
+          <div class="up-sub">Front view right chest</div><!-- ← change subtext here -->
+        </div>
         <input type="file" id="upBadge" accept="image/*" style="display:none" onchange="loadImg('badge',this)">
         <button class="up-clear-btn" id="clearBadgeBtn" onclick="clearImg('badge')" style="display:none">&#10005; Remove badge</button>
+
+        <!-- Sponsor upload / text -->
         <div class="up-title" style="margin:8px 0 6px">Sponsor Logo</div>
-        <div class="up-box" id="upSponsorBox" onclick="document.getElementById('upSponsor').click()"><div class="up-title" id="upSponsorTitle">Upload sponsor logo — PNG</div><div class="up-sub">Transparent background ideal</div></div>
+        <div class="up-box" id="upSponsorBox" onclick="document.getElementById('upSponsor').click()">
+          <div class="up-title" id="upSponsorTitle">Upload sponsor logo — PNG</div>
+          <div class="up-sub">Transparent background ideal</div><!-- ← change subtext here -->
+        </div>
         <input type="file" id="upSponsor" accept="image/*" style="display:none" onchange="loadImg('sponsor',this)">
         <button class="up-clear-btn" id="clearSponsorBtn" onclick="clearImg('sponsor')" style="display:none">&#10005; Remove image</button>
+        <!-- maxlength here controls the sponsor text character limit -->
         <input class="txt-in" id="sponsorTxt" placeholder="Or type sponsor name" maxlength="16" oninput="onTextInput()" style="margin-top:8px">
         <div class="sponsor-conflict" id="sponsorConflict" style="display:none">Image takes priority — remove it to use text instead.</div>
+
       </div>
     </div>
 
+    <!-- ── Name & Number ──────────────────────────────────
+         pName  — player name, shown on back of shirt.
+                  maxlength and the counter limit (main.js updateNameCount)
+                  should be kept in sync.
+         pNum   — squad number, shown on back of shirt.
+                  maxlength="2" allows single or double digit numbers.
+
+         Font selects — the option value is the CSS font-family string
+         passed directly to the canvas. To add a font:
+           1. Add it to the Google Fonts <link> in the <head>
+           2. Add an <option> here with value="'Font Name',fallback"
+           Do this for BOTH nameFont and numFont selects. -->
     <div class="sec" id="secName">
-      <div class="sec-head" onclick="toggleSec('secName')"><span class="sec-title">Name &amp; Number</span><span class="sec-arrow" id="arr-secName">&#9660;</span></div>
+      <div class="sec-head" onclick="toggleSec('secName')">
+        <span class="sec-title">Name &amp; Number</span>
+        <span class="sec-arrow" id="arr-secName">&#9660;</span>
+      </div>
       <div class="sec-body" id="body-secName">
-        <div class="name-row"><span class="up-title">Player Name</span><span class="name-count" id="nameCount">0/12</span></div>
+
+        <div class="name-row">
+          <span class="up-title">Player Name</span>
+          <span class="name-count" id="nameCount">0/12</span><!-- counter updated by JS -->
+        </div>
+        <!-- maxlength should match the limit in updateNameCount() in main.js -->
         <input class="txt-in" id="pName" placeholder="e.g. JOHNSON" maxlength="12" oninput="onTextInput()">
-        <div class="pat-opt-row" style="margin-top:8px"><span class="pat-opt-lbl">Name Size</span><span class="pat-opt-val" id="nameSizeVal">100%</span></div>
+
+        <div class="pat-opt-row" style="margin-top:8px">
+          <span class="pat-opt-lbl">Name Size</span>
+          <span class="pat-opt-val" id="nameSizeVal">100%</span>
+        </div>
         <input type="range" class="pat-slider" id="nameSize" min="50" max="150" value="100" oninput="onNameNumOpt()">
+
         <div class="up-title" style="margin-bottom:5px">Name Font</div>
+        <!-- To add a font: add it to Google Fonts above, then add an <option> here -->
         <select class="fnt-sel" id="nameFont" onchange="redraw()">
           <option value="'Barlow Condensed',sans-serif">Modern Block</option>
           <option value="'Georgia',serif">Classic Serif</option>
           <option value="'Arial Black',sans-serif">Heavy Sans</option>
           <option value="monospace">Typewriter</option>
         </select>
+
         <div class="up-title" style="margin-bottom:5px;margin-top:10px">Squad Number</div>
+        <!-- maxlength="2" = single or double digit numbers only -->
         <input class="txt-in" id="pNum" placeholder="e.g. 9" maxlength="2" oninput="onTextInput()">
-        <div class="pat-opt-row" style="margin-top:8px"><span class="pat-opt-lbl">Number Size</span><span class="pat-opt-val" id="numSizeVal">100%</span></div>
+
+        <div class="pat-opt-row" style="margin-top:8px">
+          <span class="pat-opt-lbl">Number Size</span>
+          <span class="pat-opt-val" id="numSizeVal">100%</span>
+        </div>
         <input type="range" class="pat-slider" id="numSize" min="50" max="150" value="100" oninput="onNameNumOpt()">
+
         <div class="up-title" style="margin-bottom:5px">Number Font</div>
+        <!-- To add a font: add it to Google Fonts above, then add an <option> here -->
         <select class="fnt-sel" id="numFont" onchange="redraw()">
           <option value="'Barlow Condensed',sans-serif">Modern Block</option>
           <option value="'Georgia',serif">Classic Serif</option>
           <option value="'Arial Black',sans-serif">Heavy Sans</option>
           <option value="monospace">Typewriter</option>
         </select>
+
       </div>
     </div>
 
+    <!-- ── Export ─────────────────────────────────────────
+         Format buttons toggle S.fmt via setFmt().
+         exportKit() in export.js handles the actual download.
+         To add/remove a format, add/remove a .fmt-btn and update
+         exportKit() in export.js to handle the new format string. -->
     <div class="sec sec-export" id="secExport">
-      <div class="sec-head" onclick="toggleSec('secExport')"><span class="sec-title">Export Kit</span><span class="sec-arrow" id="arr-secExport">&#9660;</span></div>
+      <div class="sec-head" onclick="toggleSec('secExport')">
+        <span class="sec-title">Export Kit</span>
+        <span class="sec-arrow" id="arr-secExport">&#9660;</span>
+      </div>
       <div class="sec-body" id="body-secExport">
         <div class="export-row">
           <div class="fmt-btn on" id="fmt-png" onclick="setFmt(this,'png')">PNG</div>
-          <div class="fmt-btn" id="fmt-jpg" onclick="setFmt(this,'jpg')">JPG</div>
-          <div class="fmt-btn" id="fmt-svg" onclick="setFmt(this,'svg')">SVG</div>
+          <div class="fmt-btn"    id="fmt-jpg" onclick="setFmt(this,'jpg')">JPG</div>
+          <div class="fmt-btn"    id="fmt-svg" onclick="setFmt(this,'svg')">SVG</div>
         </div>
         <button class="export-btn" onclick="exportKit()">Export Kit</button>
       </div>
     </div>
-  </div>
 
+  </div><!-- end .controls -->
+
+  <!-- ┌─────────────────────────────────────────────────┐
+       │  RIGHT PANEL — shirt preview canvas             │
+       └─────────────────────────────────────────────────┘
+       Three layers are stacked on top of each other:
+         1. #shirtImg    — the base shirt photo/image (JPEG/PNG)
+         2. #colourSvg   — SVG colour zones drawn by redraw.js
+         3. #logosSvg    — SVG logos, text and badge drawn by redraw.js
+
+       The viewBox on both SVGs is set dynamically by setView()
+       to match the dimensions of the active shirt template. -->
   <div class="canvas-area">
+
     <div class="canvas-header">
+      <!-- ↓ Change this text to rebrand the preview header -->
       <div class="canvas-logo">Achilles Sports — Kit Designer</div>
       <div class="canvas-header-right">
+        <!-- Front / Back view toggle -->
         <div class="view-toggle">
           <div class="vtog on" id="vFront" onclick="setView('front')">Front</div>
-          <div class="vtog" id="vBack"  onclick="setView('back')">Back</div>
+          <div class="vtog"    id="vBack"  onclick="setView('back')">Back</div>
         </div>
+        <!-- Undo is disabled until there is something to undo -->
         <button class="tool-btn" id="undoBtn" onclick="undo()" disabled>&#8629; Undo</button>
         <button class="tool-btn" id="resetBtn" onclick="resetKit()">&#8635; Reset</button>
       </div>
     </div>
+
     <div class="mockup-wrap" id="mockupWrap">
+      <!-- Layer 1: base shirt image — src is swapped by setView() -->
       <img class="shirt-base" id="shirtImg" src="assets/shirt_front.jpeg" alt="Kit">
+      <!-- Layer 2: colour fill zones — paths drawn by redraw.js using shirt zone data -->
       <svg class="colour-overlay" id="colourSvg" viewBox="0 0 1600 2000" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"></svg>
+      <!-- Layer 3: logos, badge, name, number — drawn on top of the colour layer -->
       <svg class="logos-overlay"  id="logosSvg"  viewBox="0 0 1600 2000" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"></svg>
     </div>
-  </div>
-</div>
 
-<!-- Shirt templates — add new <script> tags here for each new shirt -->
+  </div><!-- end .canvas-area -->
+
+</div><!-- end .wrap -->
+
+<!-- ═══════════════════════════════════════════════════════
+     SCRIPTS — order matters, do not rearrange
+     ═══════════════════════════════════════════════════════
+     Shirt templates must load before redraw.js so that
+     window.SHIRTS is populated when redraw first runs.
+     Patterns must load before main.js for the same reason.
+     main.js must load last as it kicks off the boot sequence. -->
+
+<!-- Shirt templates — add a new <script> tag here for each new shirt.
+     Each file registers entries in window.SHIRTS keyed as "shirtname_front"
+     and "shirtname_back", and also adds an <option> to #shirtSelect. -->
 <script src="shirts/vneck.js"></script>
 
-<!-- Pattern library — add new <script> tags here for each new pattern -->
+<!-- Pattern library — add a new <script> tag here for each new pattern.
+     Each file registers an entry in window.PATTERNS keyed by pattern name,
+     and also adds a .ktab in the Pattern section above. -->
 <script src="patterns/stripe.js"></script>
 <script src="patterns/hoop.js"></script>
 <script src="patterns/geo.js"></script>
 <script src="patterns/halftone.js"></script>
 
-<!-- Core JS -->
-<script src="js/redraw.js"></script>
-<script src="js/export.js"></script>
-<script src="js/main.js"></script>
+<!-- Core JS — do not reorder these three -->
+<script src="js/redraw.js"></script><!-- draws colour zones and logos onto the SVG layers -->
+<script src="js/export.js"></script><!-- handles PNG / JPG / SVG download -->
+<script src="js/main.js"></script>  <!-- state, event handlers, boot sequence -->
+
 </body>
 </html>
